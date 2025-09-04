@@ -1,0 +1,32 @@
+{
+    "providerId": "magneticbyteinternettechnologiesopcpvtltd.in",
+    "providerName": "Magnetic Byte Internet Technologies OPC Pvt Ltd",
+    "serviceId": "email-auth",
+    "serviceName": "Email Authentication",
+    "version": 1,
+    "logoUrl": "https://your-app.example/logo.svg",
+    "description": "Add DKIM and DMARC records for outbound email.",
+    "variableDescription": "%selector1%: DKIM selector 1; %selector2%: DKIM selector 2; %rua%: DMARC aggregate report URI.",
+    "syncPubKeyDomain": "keys.magneticbyteinternettechnologiesopcpvtltd.in",
+    "syncRedirectDomain": "app.yourcompany.example",
+    "records": [
+        {
+            "type": "CNAME",
+            "host": "%selector1%._domainkey",
+            "pointsTo": "dkim1.your-svc.net.",
+            "ttl": "3600"
+        },
+        {
+            "type": "CNAME",
+            "host": "%selector2%._domainkey",
+            "pointsTo": "dkim2.your-svc.net.",
+            "ttl": "3600"
+        },
+        {
+            "type": "TXT",
+            "host": "_dmarc",
+            "data": "v=DMARC1; p=none; rua=%rua%",
+            "ttl": "3600"
+        }
+    ]
+}
