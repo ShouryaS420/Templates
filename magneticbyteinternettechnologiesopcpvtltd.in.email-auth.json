@@ -1,18 +1,35 @@
 {
   "providerId": "magneticbyteinternettechnologiesopcpvtltd.in",
   "serviceId": "email-auth",
-  "version": 2,
-  "description": "Authenticate email sending (DKIM + DMARC)",
-  "syncRedirectDomain": "auth.magneticbyteinternettechnologiesopcpvtltd.in",
+  "serviceName": "Business Suite Email Authentication",
+  "description": "Configures DKIM (2 CNAMEs) and DMARC (TXT) for outbound mail authentication.",
+  "version": 1,
   "syncPubKeyDomain": "keys.magneticbyteinternettechnologiesopcpvtltd.in",
-  "records": [
-    { "type": "CNAME", "host": "{selector1}._domainkey", "pointsTo": "{selector1}.domainkey.your-svc.net.", "ttl": 3600 },
-    { "type": "CNAME", "host": "{selector2}._domainkey", "pointsTo": "{selector2}.domainkey.your-svc.net.", "ttl": 3600 },
-    { "type": "TXT",   "host": "_dmarc", "value": "v=DMARC1; p=none; rua={rua}", "ttl": 3600 }
+  "syncRedirectDomain": "auth.magneticbyteinternettechnologiesopcpvtltd.in",
+  "variableDescription": "Variables used to fill DKIM selectors and DMARC reporting.",
+  "variables": [
+    { "name": "selector1", "description": "First DKIM selector", "required": true },
+    { "name": "selector2", "description": "Second DKIM selector", "required": true },
+    { "name": "rua",       "description": "DMARC aggregate report URI", "required": true }
   ],
-  "variableDescription": {
-    "selector1": "Primary DKIM selector (e.g., k1)",
-    "selector2": "Secondary DKIM selector (e.g., k2)",
-    "rua": "DMARC aggregate report URI"
+"records": [
+  {
+    "type": "CNAME",
+    "host": "{selector1}._domainkey",
+    "pointsTo": "{selector1}.domainkey.your-svc.net.",
+    "ttl": 3600
+  },
+  {
+    "type": "CNAME",
+    "host": "{selector2}._domainkey",
+    "pointsTo": "{selector2}.domainkey.your-svc.net.",
+    "ttl": 3600
+  },
+  {
+    "type": "TXT",
+    "host": "_dmarc",
+    "data": "v=DMARC1; p=none; rua={rua}; fo=1; sp=none",
+    "ttl": 3600
   }
+]
 }
